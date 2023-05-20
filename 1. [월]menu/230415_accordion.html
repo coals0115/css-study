@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* 
+        <핵심>
+        1. accordion을 클릭할 때마다 classList에 active를 제거했다가 추가해서 펼칠 때 .active:after의 content를 마이너스 모양으로 바꾼다. (기본은 + 아이콘)  
+        2. accordion을 클릭할 때마다 panel이 펼쳐져있는 상태면(maxHeigth에 값이 있으면) 접고(maxHeight의 값을 null로 변경) 
+            panel이 닫혀져있는 상태면(maxHeight의 값이 0, null..이면) 연다.(panel 요소의 총 높이를 panel의 최대 높이로 설정)
+        3. :after = 태그 뒤에 위치하는 공간을 선택한다.
+        */
+        .accordion {
+            background-color: #eee;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%; /* button은 display가 inline-block이라 width 지정 가능 / 부모의 크기의 100% -> body? */
+            border: none; /* border 없앰 */
+            text-align: left; /* button 내용 왼쪽 정렬 */
+            outline: none; /* 외곽석을 제거한다. (왜 있는 건지 모르겠음..) */
+            font-size: 15px;
+            transition: 0.4s; /* 이거는 왜 있는거..? */
+        }
+
+        /* .accordion 클래스에 커서가 올라갈 때 */
+        .active, .accordion:hover {
+            background-color: #ccc;
+        }
+
+        .accordion:after { /* .accordion 클래스 태그의 뒤에 위치하는 공간을 선택한다. */
+            content: '\002B';
+            color: #777;
+            font-weight: bold;
+            float: right; /* 오른쪽에 붙인다. */
+            margin-left: 5px;
+        }
+
+        /* active 클래스 태그의 뒤에 위치하는 공간을 선택한다. */
+        /* accordion을 클릭할 때마다 active 클래스가 생겼다가 사라졌다 하니까 펼치면 마이너스, 접으면 + 모양이됨 */
+        .active:after {
+            content: "\2212"; /* 마이너스(-) 모양 */
+        }
+
+        .panel {
+            padding: 0 18px; /* 좌우 내부 여백 18px */
+            background-color: white;
+            max-height: 0; /* panel의 최대 높이를 0으로 제한한다.  */
+            overflow: hidden; /* 부모 요소를 벗어나는 건 숨긴다...???? panel의 부모 = body */
+            /* max-height가 변경될 때 0.2초 동안 진행된다. ease-out - 애니메이션이 빠르게 시작되고 느리게 종료되도록 설정한다. */
+            transition: max-height 0.2s ease-out; 
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Accordion with symbols</h2>
+    <p>In this example we have added a "plus" sign to each button. When the user clicks on the button, the "plus" sign is replaced with a "minus" sign.</p>
+    <button class="accordion">Section 1</button>
+    <div class="panel">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+
+    <button class="accordion">Section 2</button>
+    <div class="panel">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+
+    <button class="accordion">Section 3</button>
+    <div class="panel">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+
+    <script>
+        /* class명이 accordion인 요소들을 가져온다. */
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                /* .accordion classList에 active를 추가한다.(이미 존재하면 제거하고, 없으면 추가한다.) */
+                this.classList.toggle("active");
+                /* acc[i]의 다음 요소 가져온다.(.panel) */
+                var panel = this.nextElementSibling;
+                /* panel의 maxHeight의 값이 있으면(펼쳐져있는 상태면) */
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null; /* maHeight 값을 null로 변경 */
+                } else { /* 닫혀져있는 상태면 */
+                    /* scrollHeight = 요소의 총 높이(바깥으로 넘쳐서 보이지 않는 콘텐츠도 포함) panel의 최대 높이를 panel의 요소의 총 높이로 설정 */
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

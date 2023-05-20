@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0; /* body 기본 마진 8px 삭제 */
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #navbar {
+            overflow: hidden; /* ? */
+            background-color: #f1f1f1;
+            padding: 90px 10px;
+            transition: 0.4s; /* onscroll 발생 시 padding 크기, 폰트 크기 조정되는 거 부드럽게하기(0.4초동안 재생) */
+            position: fixed; /* 요소의 위치 고정, 스크롤할 때도 위치가 변경되지 않는다. */
+            width: 100%;
+            top: 0;
+            z-index: 99;
+        }
+
+        #navbar a {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 18px;
+            line-height: 25px; /* 텍스트 줄 사이의 높이를 25px로 설정 */
+            border-radius: 4px; /* 테두리 둥글게(background-color에도 적용되는듯?) */
+            transition: 0.4s; /* 아래의 hover 효과 0.4초동안 재생 */
+        }
+
+        #navbar #logo {
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        #navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        #navbar a.active {
+            background-color: dodgerblue;
+            color: white;
+        }
+
+        #navbar-right { /* 오른쪽으로 붙인다. */
+            float: right;
+        }
+
+        /* 반응형 웹 : 최대 넓이가 580px이하인 경우에 적용 */
+        @media screen and (max-width: 580px) {
+            #navbar {
+                padding: 20px 10px !important; /* . navbar의 내부여백을 조금임줄임 !important는 css 우선순위를 제일 높게 설정 */
+            }
+
+            #navbar a {
+                /* float left -> none */
+                float: none; 
+                display: block; /* a태그 기본 display inline -> block 변경 */
+                text-align: left; /* text 왼쪽 정렬 */
+            }
+
+            #navbar-right {
+                float: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="navbar">
+        <a href="#default" id="logo">CompanyLogo</a>
+        <div id="navbar-right">
+            <a class="active" href="#home">Home</a>
+            <a href="#contact">Contact</a>
+            <a href="#about">About</a>
+        </div>
+    </div>
+
+    <div style="margin-top:210px;padding:15px 15px 2500px;font-size:30px">
+        <p><b>This example demonstrates how to shrink a navigation bar when the user starts to scroll the page.</b></p>
+        <p>Scroll down this frame to see the effect!</p>
+        <p>Scroll to the top to remove the effect.</p>
+        <p><b>Note:</b> We have also made the navbar responsive, resize the browser window to see the effect.</p>
+        <p>Lorem ipsum dolor dummy text to enable scrolling, sit amet, consectetur adipiscing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+
+    <script>
+        // 제일 위에서 80px보다 아래로 스크롤하면 navbar의 padding과 로고의 글꼴 크기를 조정한다.
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            // 브라우저간의 호환성 때문에 body.scrollTop과 documnetElement.scrollTop 둘 다 사용 
+            // document.documentElement.scrollTop(수직 스크롤 위치를 가져올 수 있는 속성이다.)
+            if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+                console.log("document.body.scrollTop : " + document.body.scrollTop);
+                console.log("document.documentElement.scrollTop : " + document.documentElement.scrollTop);
+                document.getElementById("navbar").style.padding = "30px 10px";
+                document.getElementById("logo").style.fontSize = "25px";
+            } else {
+                document.getElementById("navbar").style.padding = "80px 10px";
+                document.getElementById("logo").style.fontSize = "35px";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

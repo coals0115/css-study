@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /*
+        <transform : 변환>
+        - 시간의 흐름을 따로 가지지 않고 일어나는 형태의 변경
+        translate : 특정 크기 만큼 이동한다.
+        rotate : 특정 각도만큼 회전한다.
+
+        <transition : 변형>
+        - 부드러운 애니메이션을 적용할 때 필요한 기능
+        - 시간의 흐름을 가지고 일어나는 변경
+        duration : 몇 초 동안 재생할지 지정한다.
+        */
+        .container {
+            display: inline-block;
+            cursor: pointer; /* 마우스 커서가 container 요소 위에 있을 때 커서 모양을 손가락으로 바꿈 */
+        }
+
+        .bar1,
+        .bar2,
+        .bar3 {
+            width: 35px;
+            height: 5px;
+            background-color: #333;
+            margin: 6px 0;
+            transition-duration: 0.4s; /* 0.4초동안 재생된다. */
+        }
+
+        .change .bar1 {
+            /* (0, 11px)만큼 이동한다. / -45deg만큼 회전한다. - 반시계 방향으로 45도.. */
+            transform: translate(0, 11px) rotate(-45deg);
+        }
+
+        .change .bar2 {
+            opacity: 0;
+        }
+
+        .change .bar3 {
+            /* (0, -11px)만큼 이동한다.  / 45deg만큼 회전한다.(360deg = 1turn) - 시계 방향으로 45도 */
+            transform: translate(0, -11px) rotate(45deg);
+        }
+    </style>
+</head>
+
+<body>
+
+    <p>Click on the Menu Icon to transform it to "X":</p>
+    <div class="container" onclick="myFunction(this)">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+    </div>
+
+    <script>
+        function myFunction(x) {
+            /* x의 클래스 리스트에 change를 추가한다.(이미 존재하면 제거하고, 없으면 추가한다.) */
+            x.classList.toggle("change");
+        }
+    </script>
+
+</body>
+
+</html>

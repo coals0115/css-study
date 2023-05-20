@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Set height of body and the document to 100% to enable "full page tabs" */
+        body,
+        html {
+            /* height: 100%; */
+            /* margin: 0; */
+            /* font-family: Arial; */
+        }
+
+        /* Style tab links */
+        .tablink {
+            background-color: #555;
+            color: white;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            font-size: 17px;
+            width: 25%;
+        }
+
+        .tablink:hover {
+            background-color: #777;
+        }
+
+        /* Style the tab content (and add height:100% for full page content) */
+        .tabcontent {
+            color: white;
+            /* display: none; */
+            padding: 100px 20px;
+            height: 100%;
+            /* ? */
+        }
+
+        #Home {
+            background-color: red;
+        }
+
+        #News {
+            background-color: green;
+        }
+
+        #Contact {
+            background-color: blue;
+        }
+
+        #About {
+            background-color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="tablink" onclick="openPage('Home', this, 'red')">Home</button>
+    <button class="tablink" onclick="openPage('News', this, 'green')" id="defaultOpen">News</button>
+    <button class="tablink" onclick="openPage('Contact', this, 'blue')">Contact</button>
+    <button class="tablink" onclick="openPage('About', this, 'orange')">About</button>
+
+    <div id="Home" class="tabcontent">
+        <h3>Home</h3>
+        <p>Home is where the heart is..</p>
+    </div>
+
+    <div id="News" class="tabcontent">
+        <h3>News</h3>
+        <p>Some news this fine day!</p>
+    </div>
+
+    <div id="Contact" class="tabcontent">
+        <h3>Contact</h3>
+        <p>Get in touch, or swing by for a cup of coffee.</p>
+    </div>
+
+    <div id="About" class="tabcontent">
+        <h3>About</h3>
+        <p>Who we are and what we do.</p>
+    </div>
+</body>
+<script>
+    function openPage(pageName, elmnt, color) {
+        var i, tabcontent, tablinks;
+        /* 1. 현재 열려있는 content 보이지 않게 한다. */
+        
+        // 클래스명이 tabcontent인 요소들을 가져온다.
+        tabcontent = document.getElementsByClassName("tabcontent");
+        // tabcontent들의 display를 모두 none으로 변경
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        /* 2. 버튼의 배경색상 초기화 */
+        // 클래스명이 tablink인 요소들을 가져온다.
+        tablinks = document.getElementsByClassName("tablink");
+        // tablink의 backgroundColor 속성을 초기화한다
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.backgroundColor = "";
+        }
+
+        /* 3. 클릭한 컨텐츠 보여주고 클릭한 버튼의 색상을 컨텐츠의 배경색과 똑같게한다. */
+        // 클릭한 content를 보여준다.
+        document.getElementById(pageName).style.display = "block";
+        // 클릭한 버튼의 background 색상을 지정한다
+        elmnt.style.backgroundColor = color;
+    }
+
+    // id가 defaultOpen인 요소의 클릭 이벤트를 발생시킨다.
+    document.getElementById("defaultOpen").click();
+</script>
+
+</html>

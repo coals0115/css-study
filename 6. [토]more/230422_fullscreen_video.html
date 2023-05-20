@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        /* 비디오 스타일 : 전체 창을 덮도록 넓이와 높이를 100%로 설정한다.(부모 - body)의 100% */
+        #myVideo {
+            /* 브라우저 전체 화면을 기준으로 절대 위치 좌표를 설정한다. */
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            /* 최소 넓이 : 부모의 100%(body) -> 화면에 꽉차게 */
+            min-width: 100%;
+            min-height: 100%;
+        }
+
+        /* 비디오 하단의 컨텐츠 style */
+        .content {
+            position: fixed;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: #f1f1f1;
+            width: 100%;
+            padding: 20px;
+            left: 0;
+        }
+
+        /* 비디오 일시정지/시작 버튼 style */
+        #myBtn {
+            width: 200px;
+            font-size: 18px;
+            padding: 10px;
+            border: none;
+            background: #000;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        #myBtn:hover {
+            background: #ddd;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <video autoplay muted loop id="myVideo">
+        <source src="rain.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+
+    <div class="content">
+        <h1>Heading</h1>
+        <p>Lorem ipsum dolor sit amet, an his etiam torquatos. Tollit soleat phaedrum te duo, eum cu recteque expetendis
+            neglegentur. Cu mentitum maiestatis persequeris pro, pri ponderum tractatos ei. Id qui nemore latine
+            molestiae, ad mutat oblique delicatissimi pro.</p>
+        <button id="myBtn" onclick="myFunction()">Pause</button>
+    </div>
+</body>
+
+<script>
+    const video = document.getElementById('myVideo');
+    const btn = document.getElementById('myBtn');
+
+    function myFunction() {
+        // 1. 비디오가 멈춰있는 상태인지 확인한다.
+        if (video.paused) {
+            // 1-1. 멈춰있다면 실행시키고 버튼의 innerHTML을 정지로 변경
+            video.play();
+            btn.innerHTML = 'Pause';
+        } else {
+            // 1-2. 실행 중이라면 정지시키고 버튼의 innerHTML을 실행으로 변경
+            video.pause();
+            btn.innerHTML = 'Play';
+        }
+    }
+</script>
+</html>

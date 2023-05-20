@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .flip-card {
+            /* 요소의 배경색을 투명하게 설정한다.??????? */
+            background-color: transparent; 
+            /* 높이 넓이 사진 크기와 동일하게 설정 */
+            width: 300px;
+            height: 300px;
+            /* 3D 변환을 적용할 때, 요소에 대한 원근감 설정. 값은 원근 거리를 나타내며, 숫자가 작을 수록 더 강한 원근감이 나타난다. 
+            이 속성 없으면 뭔가 밋밋해짐
+            */
+            perspective: 1000px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            /* 부모(flip-card의 width, heigth의 100%) */
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+        }
+
+        /* flip-card에 마우스를 올린 상태에서 자손 중 .flip-card-inner를 선택 */
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg); /* Y축을 중심으로 180도 회전 */
+        }
+
+        .flip-card-front, .flip-card-back {
+            /* .flip-card-inner를 기준으로 위치를 잡는다. */
+            position: absolute; 
+            /* 넓이, 높이 .flip-card-inner의 100% */
+            width: 100%;
+            height: 100%;
+            /* 3D변환(transform)된 요소의 뒷면이 보이는지 여부를 결정.(보이지 않게 만든다.)*/
+            backface-visibility: hidden; 
+        }
+
+        .flip-card-front { 
+            /* 이미지가 아닌 텍스트를 사용할 경우에 참고 용도 */
+            background-color: #bbb;
+            color: black;
+        }
+
+        .flip-card-back {
+            background-color: #2980b9;
+            color: black;
+            /* 이걸 적용하면 위에서 backface-visibility: hidden;를 적용했기 때문에(변환된 요소의 뒷면 보이지 않게 만듦) 글씨가 보이지 않는다. 
+            .flip-card:hover .flip-card-inner에서 transform: rotateY(180deg);가 적용되면, 이미 180도 회전한 상태이기 때문에 합쳐서 총 360도 회전한 것과 같은 효과가 발생해서 정상적으로 보여진다.
+            -> 이렇게 카드가 뒤집히는 듯한 효과 구현
+            */
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Card Flip with Text</h1>
+    <h3>Hover over the image below:</h3>
+
+    <div class="flip-card">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <img src="img_avatar.png" alt="Avatar" style="width: 300px; height: 300px;">
+            </div>
+            <div class="flip-card-back">
+                <h1>John Doe</h1>
+                <p>Architect & Engineer</p>
+                <p>We love that guy</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.querySelector('.flip-card').addEventListener('click', function() {
+            this.classList.toggle('flipped');
+        });
+    </script>
+</body>
+
+</html>

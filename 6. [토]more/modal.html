@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            /* 컨텐츠가 주어진 공간을 넘어가는 경우에 스크롤바가 생긴다. */
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        /* 모달 컨텐츠 */
+        .modal-content {
+            position: relative; /* 초기 위치 상태에서 상하좌우로 위치 이동 가능 */
+            background-color: #fefefe;
+            /* 요소 중앙에 위치하도록 */
+            margin: auto;
+            padding: 0; /* ? */
+            border: 1px solid #888;
+            width: 80%; /* 부모(modal)의 넓이 80% */
+            /* 요소에 그림자 효과 추가 */
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            animation-name: animatetop;
+            animation-duration: 0.4s /* 애니메이션 0.4초동안 재생 */
+        }
+
+        /* 모달창 열 때의 애니메이션 */
+        @keyframes animatetop {
+            from {
+                top: -300px; /* 초기 위치에서 -300px 위의 위치에서 시작 */
+                opacity: 0 /* 투명도 0에서 시작 */
+            }
+
+            to {
+                top: 0; /* 초기 위치 */
+                opacity: 1 /* 투명도 0에서 1까지 */
+            }
+        }
+
+        /* 닫기 버튼 */
+        .close {
+            color: white;
+            float: right; /* 오른쪽에 붙인다. */
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none; /* 텍스트의 장식을 제거하는 속성이라는데 왜 있는거..? */
+            cursor: pointer;
+        }
+
+        .modal-header {
+            padding: 2px 16px;
+            background-color: #5cb85c;
+            color: white;
+        }
+
+        .modal-body {
+            padding: 2px 16px; /* 상하2px 좌우16px 내부여백 */
+        }
+
+        .modal-footer {
+            padding: 2px 16px;
+            background-color: #5cb85c;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Animated Modal with Header and Footer</h2>
+
+    <!-- 모달창 열기 버튼 -->
+    <button id="myBtn">Open Modal</button>
+
+    <!-- 모달 -->
+    <div id="myModal" class="modal">
+
+        <!-- 모달 컨텐츠 -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Modal Header</h2>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the Modal Body</p>
+                <p>Some other text...</p>
+            </div>
+            <div class="modal-footer">
+                <h3>Modal Footer</h3>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Get the modal
+        // 모달을 얻어온다.
+        var modal = document.getElementById("myModal");
+
+        // 모달을 여는 버튼의 요소를 얻어온다.
+        var btn = document.getElementById("myBtn");
+
+        // 모달 창을 닫는 요소의 엘리먼트를 가져온다.
+        var span = document.getElementsByClassName("close")[0];
+
+        // 모달을 여는 버튼을 클릭하면 모달을 보여준다.(default = display.none)
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // <span> x 를 클릭하면 모달창을 닫는다.
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // 모달 밖의 요소를 클릭하면 모달을 닫는다.
+        window.onclick = function (event) {
+            debugger;
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        ul, #myUL {
+            list-style-type: none; /* 마커 스타일 제거(번호나 점) */
+        }
+
+        #myUL {
+            /* ul 기본 margin, padding 제거 */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* .caret 클래스는 클릭할 수 있는 화살표를 의미. 클릭하면 하위 항목이 표시되거나 숨겨진다. */
+        .caret {
+            cursor: pointer;
+            /* 텍스트 선택할 수 없도록 설정 */
+            -webkit-user-select: none;
+            /* Safari 3.1+ */
+            -moz-user-select: none;
+            /* Firefox 2+ */
+            -ms-user-select: none;
+            /* IE 10+ */
+            user-select: none;
+        }
+
+        /* 화살표를 생성하는데 사용 */
+        .caret::before {
+            content: "\25B6";
+            color: black;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        /* 90도 회전하여 아래를 가리킨다. */
+        .caret-down::before {
+            -ms-transform: rotate(90deg);
+            /* IE 9 */
+            -webkit-transform: rotate(90deg);
+            /* Safari */
+            transform: rotate(90deg);
+        }
+
+        /* 중첩된 토글을 숨기는데 사용되며, avtive 클래스가 추가되면 표시된다. */
+        .nested {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Tree View</h2>
+    <p>A tree view represents a hierarchical view of information, where each item can have a number of subitems.</p>
+    <p>Click on the arrow(s) to open or close the tree branches.</p>
+
+    <ul id="myUL">
+        <li><span class="caret">Beverages</span>
+            <ul class="nested">
+                <li>Water</li>
+                <li>Coffee</li>
+                <li><span class="caret">Tea</span>
+                    <ul class="nested">
+                        <li>Black Tea</li>
+                        <li>White Tea</li>
+                        <li><span class="caret">Green Tea</span>
+                            <ul class="nested">
+                                <li>Sencha</li>
+                                <li>Gyokuro</li>
+                                <li>Matcha</li>
+                                <li>Pi Lo Chun</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <script>
+        var toggler = document.getElementsByClassName("caret"); /* toggle들을 얻어온다. */
+        var i;
+
+        for (i = 0; i < toggler.length; i++) {
+            // caret을 클릭해서 토글을 펼치거나 접을 수 있는 트리 뷰를 만든다.
+            toggler[i].addEventListener("click", function () {
+                // 클릭 이벤트가 발생된 요소의 부모 요소에 포함된 'nested'클래스를 가진 첫 번째 요소의 'active' 클래스를 토글한다.
+                // -> 하위 목록을 보여주고 숨긴다.
+                this.parentElement.querySelector(".nested").classList.toggle("active");
+                // caret-down 클래스를 토글한다. -> 화살표가 아래를 가리키도록 회전한다.
+                this.classList.toggle("caret-down");
+            });
+        }
+    </script>
+
+</body>
+
+</html>

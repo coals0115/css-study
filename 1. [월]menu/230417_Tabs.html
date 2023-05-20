@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /*
+        <핵심>
+        1. 처음 default로 열려있는 건 London 
+            London 버튼에 id로 defaultOpen을 줘서 페이지가 로드될 때 id가 defaultOpen인 요소에 클릭 이벤트(openCity) 발생시킨다. 
+        2. 탭 변경 시에 
+            1) 기존 거 삭제
+                - 현재 보여지고 있는 content를 모두 지운다.(tabcontent들의 display를 전부 none으로 만듦)
+                - 현재 선택되어 있는 탭 강조 색 지운다.(tablinks에 active 클래스 삭제)
+            2) 클릭한 요소 보여주기
+                - 클릭한 탭의 content를 보여준다. (openCity 함수에 매개변수로 넘겨준 cityName으로 해당 cityName의 content display를 block으로 변경)
+                - 클릭 한 탭 색상 강조하기 (이벤트 리스너가 이벤트를 트리거한 요소의(가장 최근에 이벤트가 발생된 거라고 생각해도 되나..?) 클래스에 active를 추가한다.)
+        */
+        body {
+            font-family: Arial;
+        }
+
+        /* 탭 스타일 지정 */
+        .tab {
+            overflow: hidden;
+            /* 자식 요소에 float가 지정되어있으면 부모는 overflow: hidden 한다. */
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+        /* 탭 버튼 스타일 */
+        .tab button {
+            background-color: inherit; /* 부모 요소의 속성값을 상속받는다. */
+            float: left; /* 왼쪽으로 붙인다. */
+            border: none; /* border(테두리) 없앤다. */
+            outline: none; /* ? */
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s; /* 커서가 올라갈 때 back color 변경 -> 0.3초동안 재생한다.(조금 부드럽게)  */
+            font-size: 17px;
+        }
+
+        /* 버튼에 커서가 올라가면 버튼 색상 변경 */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* 현재 활성화 되어있는 탭버튼 색상 변경 */
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            /* 상하-6px, 좌우-12px 내부 여백 */
+            border: 1px solid #ccc;
+            /* 테두리 */
+            border-top: none;
+            /* 위쪽 테두리 제거 */
+        }
+
+        /* 우측 닫기 버튼 스타일 */
+        .topright {
+            float: right; /* 오른쪽에 붙인다. */
+            cursor: pointer;
+            font-size: 28px;
+        }
+
+        /* 닫기 버튼(topright)에 커서가 올라가면 색상 검은색 -> 빨간색 변경 */
+        .topright:hover {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Tabs</h2>
+    <p>Click on the x button in the top right corner to close the current tab:</p>
+
+    <div class="tab">
+        <!-- 버튼을 누르면 onpenCity function이 실행된다. London이 디폴트 -->
+        <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">London</button>
+        <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
+        <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+    </div>
+
+    <div id="London" class="tabcontent">
+        <!-- &times -> HTML 엔티티(특정 캐릭터들이 예약되어있음) -->
+        <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+        <h3>London</h3>
+        <p>London is the capital city of England.</p>
+    </div>
+
+    <div id="Paris" class="tabcontent">
+        <!-- 닫기 버튼을 누르면 내 부모의 요소(#Paris)의 display를 none으로 변경한다. -->
+        <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+        <h3>Paris</h3>
+        <p>Paris is the capital of France.</p>
+    </div>
+
+    <div id="Tokyo" class="tabcontent">
+        <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+        <h3>Tokyo</h3>
+        <p>Tokyo is the capital of Japan.</p>
+    </div>
+
+    <script>
+        function openCity(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            // tabcontent들의 display를 전부 none으로 만든다.
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            /* tablinks active되어있는 거 지운다.(active=활성화 현재 활성화 되어있는 탭 버튼만 색이 다름) */
+            for (i = 0; i < tablinks.length; i++) {
+                /* 기존에 tablinks라는 클래스가 있고 그 뒤에 active를 추가했기 때문에 'tablinks active'가됨. 그래서 지울 때도 ' active' 공백 포함해서 지워야 한다.*/
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            /* 클릭한 탭을 보여준다. display none -> block */
+            document.getElementById(cityName).style.display = "block";
+            /* 이벤트 리스너가 이벤트를 트리거한 요소의(가장 최근에 이벤트가 발생된 거라고 생각해도 되나..?) 클래스에 active를 추가한다. */
+            evt.currentTarget.className += " active";
+        }
+
+        // id="defaultOpen"인 요소를 가져와서 클릭 이벤트 발생시킨다. 
+        document.getElementById("defaultOpen").click();
+    </script>
+
+</body>
+
+</html>

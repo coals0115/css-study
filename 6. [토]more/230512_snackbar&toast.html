@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #snackbar {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px; /* 조금 더 왼쪽으로 위치하게 함 */
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed; /* 요소의 위치 고정, 스크롤할 때도 위치가 변경되지 않는다. */
+            /* z-index: 1; */
+            left: 50%; /* body의 절반에 위치 */
+            bottom: 30px; /* 아래에서 30px 위쪽에 위치 */
+            font-size: 17px;
+        }
+
+        #snackbar.show {
+            visibility: visible;
+            /* fadein : 0.5초동안 실행. 'bottom' 0 -> 30px, 'opacity' 0 -> 1로 변경. 요소가 밑에서 위로 올라오며 점점 더 선명해진다. */
+            /* fadeout : fadein 애니메이션이 끝난 후 2.5초 대기한 후에 0.5초 동안 실행. 요소가 밑에서 아래로 내려가며 점점 투명해진다. */
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 3.5s, fadeout 0.5s 2.5s;
+        }
+
+        @-webkit-keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes fadeout {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeout {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Snackbar / Toast</h2>
+    <p>Snackbars are often used as a tooltips/popups to show a message at the bottom of the screen.</p>
+    <p>Click on the button to show the snackbar. It will disappear after 3 seconds.</p>
+
+    <button onclick="myFunction()">Show Snackbar</button>
+
+    <div id="snackbar" class="show">Some text some message..</div>
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById("snackbar");
+            x.className = "show";
+
+            setTimeout(function () { 
+                x.className = x.className.replace("show", ""); 
+            }, 3000);
+        }
+    </script>
+
+</body>
+
+</html>

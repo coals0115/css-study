@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    body {
+        font-family: Arial;
+        margin: 0;
+    }
+
+    * {
+        box-sizing: border-box;
+        /* 사이즈를 테두리 기준으로 */
+    }
+
+    /* 이미지 컨테이너 위치 지정(왼쪽 및 오른쪽 화살표 위치 지정에 필요) */
+    .container {
+        position: relative;
+        /* 자식에 absolute 적용하면 부모에 relative 적용한다. */
+    }
+
+    /* 이미지는 숨겨져있는게 디폴트 */
+    .mySlides {
+        display: none;
+    }
+
+    /* 썸네일 이미지에 마우스 커서 올리면 마우스 포인터 모양 손락으로 변경 */
+    .cursor {
+        cursor: pointer;
+    }
+
+    /* 이전, 다음 버튼 */
+    .prev,
+    .next {
+        cursor: pointer;
+        position: absolute;
+        top: 40%;
+        /* 부모인 container 기준으로 위에서 40%위치에 지정 */
+        width: auto;
+        /* 이미지의 width를 그대로 사용 */
+        height: auto;
+        padding: 16px;
+        /* 내부 여백 16px */
+        margin-top: -50px;
+        /* 다른 요소와의 위쪽 간격 -50px(마이너스라 위치가 위로 올라감) */
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        border-radius: 0 3px 3px 0;
+        /* 테두리 둥글게 */
+        user-select: none;
+        /* 텍스트 선택 여부를 결정하는 속성. none 적용 시 요소 내부의 텍스트를 드래그하거나 복사할 수 없다.(보안상의 이유로 사용) */
+    }
+
+    /* 다음 버튼 오른쪽에 위치하도록 설정 */
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+    .prev:hover,
+    .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    /* Number text (1/3 etc) */
+    .numbertext {
+        color: #f2f2f2;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+        /* 부모인 container 기준으로 위에서 0위치에 지정(0, 0) */
+    }
+
+    /* 이미지 텍스트용 컨테이너 */
+    .caption-container {
+        text-align: center;
+        background-color: #222;
+        padding: 2px 16px;
+        color: white;
+    }
+
+    /* ????? */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .column {
+        float: left;
+        /* 왼쪽으로 붙인다. */
+        width: 16.66%;
+    }
+
+    .demo {
+        opacity: 0.6;
+        /* 선택 안된 썸네일 이미지 투명도 0.6 */
+    }
+
+    .active,
+    .demo:hover {
+        opacity: 1;
+        /* 활성화 or 마우스 커서 올라간 썸네일 이미지 투명도 1 */
+    }
+</style>
+
+<body>
+
+    <h2 style="text-align:center">Slideshow Gallery</h2>
+
+    <!-- 이미지 갤러리용 컨테이너 -->
+    <div class="container">
+        <div class="mySlides">
+            <div class="numbertext">1 / 6</div>
+            <img src="img_woods_wide.jpg" style="width:100%">
+        </div>
+
+        <!-- 숫자 텍스트가 있는 전체 너비 이미지 -->
+        <div class="mySlides">
+            <div class="numbertext">2 / 6</div>
+            <img src="img_5terre_wide.jpg" style="width:100%">
+        </div>
+
+        <div class="mySlides">
+            <div class="numbertext">3 / 6</div>
+            <img src="img_mountains_wide.jpg" style="width:100%">
+        </div>
+
+        <div class="mySlides">
+            <div class="numbertext">4 / 6</div>
+            <img src="img_lights_wide.jpg" style="width:100%">
+        </div>
+
+        <div class="mySlides">
+            <div class="numbertext">5 / 6</div>
+            <img src="img_nature_wide.jpg" style="width:100%">
+        </div>
+
+        <div class="mySlides">
+            <div class="numbertext">6 / 6</div>
+            <img src="img_snow_wide.jpg" style="width:100%">
+        </div>
+
+        <!-- 이전/다음 버튼-->
+        <a class="prev" onclick="plusSlides(-1)">❮</a>
+        <a class="next" onclick="plusSlides(1)">❯</a>
+
+        <!-- 이미지 텍스트 -->
+        <div class="caption-container">
+            <p id="caption"></p>
+        </div>
+
+        <!-- 썸네일 이미지 -->
+        <div class="row">
+            <div class="column">
+                <img class="demo cursor" src="img_woods.jpg" style="width:100%" onclick="currentSlide(1)"
+                    alt="The Woods">
+            </div>
+            <div class="column">
+                <img class="demo cursor" src="img_5terre.jpg" style="width:100%" onclick="currentSlide(2)"
+                    alt="Cinque Terre">
+            </div>
+            <div class="column">
+                <img class="demo cursor" src="img_mountains.jpg" style="width:100%" onclick="currentSlide(3)"
+                    alt="Mountains and fjords">
+            </div>
+            <div class="column">
+                <img class="demo cursor" src="img_lights.jpg" style="width:100%" onclick="currentSlide(4)"
+                    alt="Northern Lights">
+            </div>
+            <div class="column">
+                <img class="demo cursor" src="img_nature.jpg" style="width:100%" onclick="currentSlide(5)"
+                    alt="Nature and sunrise">
+            </div>
+            <div class="column">
+                <img class="demo cursor" src="img_snow.jpg" style="width:100%" onclick="currentSlide(6)"
+                    alt="Snowy Mountains">
+            </div>
+        </div>
+    </div>
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        /* nex, previous 버튼을 누르면 발생되는 onclick 이벤트에 연결된 이벤트 처리 함수 */
+        function plusSlides(n) {
+            /* 현재 slide index에서 n을 더해준 값을 showSlides에 넘겨준다. (next면 +1 previous면 -1) */
+            showSlides(slideIndex += n); 
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) { // n은 보여줄 slideIndex
+            let i;
+            let slides = document.getElementsByClassName("mySlides"); // 전체 너비 이미지
+            let dots = document.getElementsByClassName("demo"); // 썸네일 이미지
+            let captionText = document.getElementById("caption"); // 이미지 텍스트 엘리먼트
+
+            // 현재 slide index가 슬라이드의 최대 인덱스보다 클 경우에 slide index를 1로 초기화해준다.
+            if (n > slides.length) { slideIndex = 1 }
+            // 현재 slide index가 1보다 작을 경우에 slide index를 최대값으로 초기화해준다.
+            if (n < 1) { slideIndex = slides.length }
+
+            // 이미지들을 전부 보이지 않게 한다.
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+
+            // 썸네일 이미지 강조 css 제거
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+
+            // 보여줄 slideIndex에 해당하는 이미지 보여준다.
+            slides[slideIndex - 1].style.display = "block";
+            // 보여줄 slideIndex에 해당하는 썸네일 강조 css
+            dots[slideIndex - 1].className += " active";
+            // slideIndex에 해당하는 alt value를 captionText에 넣어준다.
+            captionText.innerHTML = dots[slideIndex - 1].alt;
+        }
+    </script>
+</body>
+
+</html>

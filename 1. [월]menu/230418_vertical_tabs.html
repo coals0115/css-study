@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /*
+        <전환 가능한 세로 탭 만들기>
+        탭 버튼 클릭 시 클릭 이벤트 발생. 클릭 이벤트가 발생한 버튼은 이벤트 소스(이벤트가 발생한 요소)가 된다. 
+        기존에 열려있던 요소들을 전부 초기화하고 클릭한 버튼에만 다시 css 효과를 준다.
+        */
+
+        * {
+            box-sizing: border-box; /* 테두리를 기준으로 크기를 정한다. */
+        }
+
+        /* 탭 스타일 지정 */
+        .tab {
+            float: left;
+            /* 왼쪽으로 붙인다. */
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            width: 30%;
+            height: 300px;
+        }
+
+        .tab button {
+            display: block;
+            /* button은 기본적으로 inline-block */
+            background-color: inherit;
+            /* 부모의 속성 상속받는다. */
+            color: black;
+            padding: 22px 16px;
+            /* 내부여백 상하 22px, 좌우 16px */
+            width: 100%;
+            /* 부모 요소 넓이의 100%(.tab) */
+            border: none;
+            /* 테두리 제거 */
+            outline: none;
+            /**/
+            text-align: left;
+            /* 글자 왼쪽 정렬 */
+            cursor: pointer;
+            transition: 0.3s;
+            /* tab button에 커서가 올라갈 때 색상이 변경되는데 0.3초동안 변경되도록 한다.(부드럽게) */
+        }
+
+        /* tab button에 커서가 올라가면 색상을 #ddd로 변경한다. */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* 현재 활성화되어있는 탭 강조 */
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+        .tabcontent {
+            float: left;
+            padding: 0px 12px;
+            /* 내부 여백 상하 0px, 좌우 12px */
+            border: 1px solid #ccc;
+            width: 70%;
+            border-left: none;
+            /* 왼쪽 테두리 제거 */
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">London</button>
+        <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
+        <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+    </div>
+
+    <!-- 특정한 탭 컨텐츠를 여는 버튼 생성 -->
+    <!-- .tabcontent div 요소는 기본적으로 숨겨져있다. 사용자가 버튼 클릭 시 일치하는 탭 컨텐츠가 열린다. -->
+    <div id="London" class="tabcontent">
+        <h3>London</h3>
+        <p>London is the capital city of England.</p>
+    </div>
+
+    <div id="Paris" class="tabcontent">
+        <h3>Paris</h3>
+        <p>Paris is the capital of France.</p>
+    </div>
+
+    <div id="Tokyo" class="tabcontent">
+        <h3>Tokyo</h3>
+        <p>Tokyo is the capital of Japan.</p>
+    </div>
+
+</body>
+<script>
+    function openCity(evt, cityName) {
+        var i, tabcontent, tablinks;
+        /* 1. 기존에 열려있던 tabcontent 요소 보이지 않게 한다.  */
+        // .tabcontent 요소들을 가져온다.
+        tabcontent = document.getElementsByClassName('tabcontent');
+        // tabcontent들의 display를 전부 다 none으로 변경한다.
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        /* 2. 기존 선택되어있던 버튼 강조 css 제거 */
+        // .tablinks 요소들을 가져온다.
+        tablinks = document.getElementsByClassName('tablinks');
+        debugger;
+        // tablinks의 class명에서 " active"제거
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        /* 3. 클릭한 버튼에 해당하는 content 보여준다. */
+        document.getElementById(cityName).style.display = "block";
+        /* 이벤트가 발생한 소스의 className에 ' active'를 추가해준다. */
+        evt.currentTarget.className += " active";
+    }
+
+    /* id가 defaultOpen인 요소의 클릭 이벤트 발생시킨다. */
+    document.getElementById('defaultOpen').click();
+</script>
+
+</html>

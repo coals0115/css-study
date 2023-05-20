@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        p {
+            text-align: center;
+            font-size: 60px;
+            margin-top: 0px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <p id="demo"></p>
+
+    <script>
+        // 카운트다운할 날짜  
+        var countDownDate = new Date("Oct 25, 2023 13:00:00").getTime();
+
+        // 1초마다 남은 시간 계산하는 함수가 호출이 되어서 카운트다운이 되는 것처럼 보여진다.
+        var x = setInterval(function () {
+
+            // 오늘 날짜와 시간을 구해온다.
+            var now = new Date().getTime();
+
+            // 두 날짜(현재, 카운트다운할 날짜) 사이의 차이를 구한다.
+            var distance = countDownDate - now;
+
+            // 시간의 차이를 일, 시, 분, 초로 계산 
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // 계산한 일, 시, 분, 초를 demo에 출력
+            document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+                + minutes + "m " + seconds + "s ";
+
+            // 카운트 다운이 끝나면 보여줄 텍스트 
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("demo").innerHTML = "EXPIRED";
+            }
+        }, 1000);
+    </script>
+
+</body>
+
+</html>

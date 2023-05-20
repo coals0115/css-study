@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+        }
+
+        .overlay {
+            height: 100%;
+            width: 100%;
+            position: fixed; /* 요소의 위치 고정, 스크롤할 때도 위치가 변경되지 않는다. */
+            z-index: 1; /*  */
+            top: 0; /* 제일 위에 위치 */
+            left: 0; /* 제일 왼쪽에 위치 */
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow-x: hidden; /* 주석처리해도 차이 없는데 왜있는건지.. */
+            transition: 0.5s; /* 메뉴 열고닫을 때(width 100% -> 0%) 바로 열고 닫히는 게 아니라 0.5초동안 닫아지도록(자연스럽게) */
+        }
+
+        .overlay-content {
+            position: relative;
+            top: 25%; /* 위에서 25%위치 */
+            width: 100%; /* .overlay의 100% */
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .overlay a {
+            padding: 8px;
+            text-decoration: none;
+            font-size: 36px;
+            color: #818181;
+            display: block; /* 한 줄에 위치하지 않고 줄바꿈되도록 */
+            transition: 0.3s; /* a hover, focus시 0.3초동안 재생 */
+        }
+
+        .overlay a:hover,
+        .overlay a:focus {
+            color: #f1f1f1;
+        }
+
+        .overlay .closebtn {
+            position: absolute; /* overlay 기준으로 위치 잡는다. */
+            top: 20px; /* 위에서 20px 떨어진 곳에 위치 */
+            right: 45px; /* 오른쪽에서 45px 떨어진 곳에 위치 */
+            font-size: 60px;
+        }
+
+        /* 반응형 웹 : 최대 높이가 450px이하일 경우에 */
+        @media screen and (max-height: 450px) {
+            .overlay a {
+                font-size: 20px /* 메뉴 글자 크기 줄인다.(기존 36 -> 20) */
+            }
+
+            .overlay .closebtn {
+                font-size: 40px; /* 60 -> 40으로 줄이기 */
+                top: 15px;
+                right: 35px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="myNav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Clients</a>
+            <a href="#">Contact</a>
+        </div>
+    </div>
+
+    <h2>Fullscreen Overlay Nav Example</h2>
+    <p>Click on the element below to open the fullscreen overlay navigation menu.</p>
+    <p>In this example, the navigation menu will slide in, from left to right:</p>
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+
+    <script>
+        // 메뉴 열 때 width를 0%에서 100%으로 변경
+        function openNav() {
+            document.getElementById("myNav").style.width = "100%";
+        }
+
+        // 메뉴 닫을 때 width를 100%에서 0%로 변경
+        function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
+        }
+    </script>
+
+</body>
+
+</html>

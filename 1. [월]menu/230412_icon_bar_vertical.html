@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Icon Bar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /*
+        <핵심>
+        1. a태그 요소를 수직으로 만들기    : display: block / block = 줄바꿈, 쌓아 올려지는 형식
+        2. 커서 올린 부분만 색상 다르게하기 : 태그:hover { background-color: #000 }
+        3. 현재 선택되어있는 부분 강조     : a태그의 class를 active로 줘서 class attribute의 value가 active인 요소는 초록색으로 강조 
+        4. body 요소에는 모든 면에 8px의 여백이 있다. -> 없애려면 body { margin: 0 }을 하면 된다.
+        */
+
+        /* body와 화면과의 여백을 0으로 설정 - 기본이 8? */
+        body {
+            margin: 0;
+        }
+
+        /* 클래스 선택자, class가 icon-bar인 요소에 모두 적용한다.*/
+        .icon-bar {
+            /* div 태그의 넓이는 90px로 한다. */
+            width: 90px;
+            /* div 태그의 배경 색상 지정(회색으로 - #555) */
+            background-color: #555;
+        }
+
+        /* class attribute의 value가 icon-bar이고, 그의 후손 중 모든 a태그에 적용한다. */
+        .icon-bar a {
+            /* a태그들을 block 형식으로 지정한다. block = 줄바꿈, 쌓아 올려지는 형식 */
+            display: block;
+            /* a태그의 내용(텍스트) 중앙 정렬 */
+            text-align: center;
+            /* 요소의 내부여백을 16px을 준다. */
+            padding: 16px;
+            transition: all 0.3s ease;
+            /* a태그의 value 색상을 흰색으로 변경 */
+            color: white;
+            /* a태그 value의 폰트 사이즈를  36px로 설정 */
+            font-size: 36px;
+        }
+        
+        /* class의 value가 icon-bar이고, 그의 후손 중 사용자가 마우스를 올린 a태그 */
+        .icon-bar a:hover {
+            /* 사용자가 마우스를 올린 a태그의 백그라운드 색상을 검은색으로 한다. */
+            background-color: black;
+        }
+
+        /* 현재 선택되어있는 a태그의 class를 active로 줘서 class attribute의 value가 active인 요소는 초록색으로 강조 */
+        .active {
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- i태그 : 글자를 기울여서 표시한다. italic의 약자 -->
+    <div class="icon-bar">
+        <a href="#"><i class="fa fa-home"></i></a>
+        <a class="active" href="#"><i class="fa fa-search"></i></a>
+        <a href="#"><i class="fa fa-envelope"></i></a>
+        <a href="#"><i class="fa fa-globe"></i></a>
+        <a href="#"><i class="fa fa-trash"></i></a>
+    </div>
+</body>
+
+</html>

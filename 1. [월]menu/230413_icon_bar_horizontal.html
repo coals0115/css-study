@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Icon Bar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /*
+        <핵심>
+        1. [수평 메뉴 만들기] float: left 
+            태그를 왼쪽으로 붙이고 떠다니게 한다.(a태그가 inline이라 width, height가 먹지 않아서 float 사용)
+        2. [메뉴 항목의 너비를 일정하게 나누기] .icon-bar a {width: 20%;} 
+                a태그들의 너비를 부모 요소인 .icon-bar의 너비의 20%로 설정함으로써 메뉴 항목의 너비를 일정하게 나눌 수 있다. (부모 요소의 너비를 기준으로 상대 너비를 계산한다.)
+        */
+        /* body 요소의 외부 여백을 0으로 변경한다.+) 기본적으로 body 요소에는 모든 면에 8px의 여백이 있다. */
+        body {
+            margin: 0;
+        }
+
+        .icon-bar {
+            width: 100%; /* 넓이를 100%로 설정 화면에 꽉차도록 */
+            background-color: #555;
+            overflow: auto;
+        }
+
+        .icon-bar a {
+            /* 태그를 왼쪽으로 붙이고 떠다니게 한다.  */
+            /* inline이라 width, heigth 안 먹어서 float 속성 쓴 건가? */    
+            float: left; 
+            /* .icon-bar 너비의 20% (부모 요소의 너비를 기준으로 상대 너비를 계산한다.) 5개의 a태그가 있어 총 100% */
+            width: 20%; 
+            /* a태그의 내용 가운데 정렬 */
+            text-align: center; 
+            /* 상하 12px 좌우 여백0 (내부 여백)*/
+            padding: 12px 0; 
+            /* transition: all 0.3s ease; */
+            /* a태그의 내용 색상 흰색으로 지정 */
+            color: white; 
+            /* a태그의 내용 size 36px로 지정 */
+            font-size: 36px; 
+        }
+
+        /* 커서 올린 a태그의 bg 색상 검은색으로 */
+        .icon-bar a:hover {
+            background-color: #000;
+        }
+
+        /* 현재 선택되어있는 a태그의 class를 active로 줘서 class attribute의 value가 active인 요소는 초록색으로 강조 */
+        .active {
+            background-color: #04AA6D;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- i태그 : 글자를 기울여서 표시한다. italic의 약자 -->
+    <div class="icon-bar">
+        <a href="#"><i class="fa fa-home"></i></a>
+        <a class="active" href="#"><i class="fa fa-search"></i></a>
+        <a href="#"><i class="fa fa-envelope"></i></a>
+        <a href="#"><i class="fa fa-globe"></i></a>
+        <a href="#"><i class="fa fa-trash"></i></a>
+    </div>
+</body>
+
+</html>

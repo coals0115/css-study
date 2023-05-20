@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #myInput {
+            background-image: url('searchicon.png');
+            /* 찾기 아이콘 추가 */
+            background-position: 10px 12px;
+            /*10px x축, 12px y축*/
+            background-repeat: no-repeat;
+            /* 노 반복 */
+            width: 100%;
+            /* display: inline-block이라 width 지정 가능 */
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        #myUL {
+            list-style-type: none;
+            /* ul에 기본적으로 적용되어있는 padding, margin 제거 */
+            padding: 0;
+            margin: 0;
+        }
+
+        #myUL li a {
+            border: 1px solid #ddd;
+            margin-top: -1px;
+            /* 이중 테두리 방지 */
+            background-color: #f6f6f6;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 18px;
+            color: black;
+            display: block;
+            /* a태그 기본 inline -> block */
+        }
+
+        /* #myUL의 자손인 li의 자손인 a태그에 커서가 올라가있는 요소(클래스가 .header인 요소는 제외) */
+        #myUL li a:hover:not(.header) {
+            background-color: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- onkeyup : 키를 눌렀다가 놓을 때 발생되는 이벤트 -->
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+
+    <ul id="myUL">
+        <li><a href="#">Adele</a></li>
+        <li><a href="#">Agnes</a></li>
+
+        <li><a href="#">Billy</a></li>
+        <li><a href="#">Bob</a></li>
+
+        <li><a href="#">Calvin</a></li>
+        <li><a href="#">Christina</a></li>
+        <li><a href="#">Cindy</a></li>
+    </ul>
+</body>
+
+<script>
+    // input에 글자 입력 후 이벤트 발생(onkeyup : 키를 눌렀다가 놓을 때 발생되는 이벤트)
+    function myFunction() {
+        // Declare variables
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById('myInput');
+        filter = input.value.toUpperCase(); /* 대문자로 변환 */
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName('li');
+
+        // 모든 목록 항목을 순환하고, 검색 쿼리와 일치하지 않는 항목을 숨긴다.
+        for (i = 0; i < li.length; i++) {
+            debugger;
+            a = li[i].getElementsByTagName("a")[0];
+            // a태그의 텍스트 가져온다.
+            txtValue = a.textContent || a.innerText;
+            // 텍스트에 input에 입력한게 있으면 보여주고 없으면 숨긴다.
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
+</html>

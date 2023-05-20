@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Slideshow container */
+        .slideshow-container {
+            max-width: 1000px; /* 최대 높이 1000px 제한 */
+            position: relative;
+            margin: auto; /* 죄우 여백 자동으로 설정(가운데 정렬) auto는 좌우에만 적용된다.*/
+        }
+
+        /* 이미지들은 숨겨져있는게 디폴트 */
+        .mySlides {
+            display: none;
+        }
+
+        /* 이전, 다음 버튼 */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute; /* 제일 가까운 relative의 좌상단을 기준으로 위치를 잡는다.(slideshow-container) */
+            top: 50%;
+            width: auto;
+            margin-top: -22px; /* 외부 위쪽 여백 -22px. 22px면 위치가 내려가야 하는데 -22라 올라감 */
+            padding: 16px; /* 내부 여백 16px */
+            color: white;
+            font-weight: bold; /* 두껍게 만들기 */
+            font-size: 18px;
+            transition: 0.6s ease; /* 커서 올릴 때 배경색 변경되는 시간 0.6초(부드럽게) */
+            border-radius: 0 100px 100px 0; /* 주석처리해도 변화가 없는데 왜 있는 건지 모르겠음.. */
+            user-select: none;
+        }
+
+        /* 다음 버튼을 오른쪽에 위치하도록 한다. */
+        .next {
+            right: 0;  /* 오른쪽에 위치하도록 한다. */
+            border-radius: 3px 0 0 3px; /* 주석처리해도 변화가 없는데 왜 있는 건지 모르겠음.. */
+        }
+
+        /* 이전, 다음 버튼에 커서를 올리면 요소의 배경색상을 검은색으로 변경한다. */
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Caption text */
+        .text {
+            color: #f2f2f2;
+            font-size: 15px;
+            padding: 8px 12px;
+            position: absolute; /* 제일 가까운 relative의 좌상단을 기준으로 위치를 잡는다.(slideshow-container) */
+            bottom: 8px; /* 아래에서 8px 위로 위치하도록 함 */
+            width: 100%; /* 부모 크기의 100% */
+            text-align: center; /* 텍스트 가운데 정렬 */
+        }
+
+        /* Number text (1/3 etc) */
+        .numbertext {
+            color: #f2f2f2;
+            font-size: 12px;
+            padding: 8px 12px; /* 내부여백 상하 8px 좌우 12px */
+            position: absolute; /* 제일 가까운 relative의 좌상단을 기준으로 위치를 잡는다.(slideshow-container) */
+            top: 0; /* 상단에 위치하도록 함 */
+        }
+
+        /* The dots/bullets/indicators */
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 2px; /* 외부 여백 좌우 2px  */
+            background-color: #bbb;
+            border-radius: 50%; /* 테두리 둥글게 */
+            display: inline-block; /* width와 height를 설정하기 위해 inline(span 기본) -> inline-block 변경 */
+            transition: background-color 0.6s ease; /* ease 타이밍 함수, 애니메이션 시작-느리게 중간-빠르게 마지막-느리게 */
+        }
+
+        /* 점에 커서를 올리거나 활성화되어있는 상태면 background-color를 변경 */
+        .active, .dot:hover {
+            background-color: #717171;
+        }
+
+        /* Fading animation */
+        .fade {
+            animation-name: fade;
+            animation-duration: 1.5s; /* 애니메이션을 1.5초동안 재생한다. (투명도 0.4 -> 1이 1.5초동안 재생됨) */
+        }
+
+        @keyframes fade {
+            from { opacity: 0.4 } /* start 투명도 0.4 */
+            to { opacity: 1 } /* end 투명도 1 */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Slideshow container -->
+    <div class="slideshow-container">
+
+        <!-- Full-width images with number and caption text -->
+        <div class="mySlides fade">
+            <div class="numbertext">1 / 3</div>
+            <img src="img1.jpg" style="width:100%">
+            <div class="text">Caption Text</div>
+        </div>
+
+        <div class="mySlides fade">
+            <div class="numbertext">2 / 3</div>
+            <img src="img2.jpg" style="width:100%">
+            <div class="text">Caption Two</div>
+        </div>
+
+        <div class="mySlides fade">
+            <div class="numbertext">3 / 3</div>
+            <img src="img3.jpg" style="width:100%">
+            <div class="text">Caption Three</div>
+        </div>
+
+        <!-- Next and previous buttons -->
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+    <br>
+
+    <!-- The dots/circles -->
+    <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)">1</span>
+        <span class="dot" onclick="currentSlide(2)">2</span>
+        <span class="dot" onclick="currentSlide(3)">3</span>
+    </div>
+</body>
+<script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    // Next/previous controls
+    // 다음/이전으로 컨트롤 현재 slideIndex에 previous면 -1을 더하고 next면 +1을 한다. 
+    function plusSlides(n) {
+        // 
+        showSlides(slideIndex += n);
+    }
+
+    // Thumbnail image controls
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    // 초기 n = 1
+    function showSlides(n) {
+        let i;
+        // 이미지들을 가져온다. (.mySlides 요소들을 가져온다.)
+        let slides = document.getElementsByClassName("mySlides");
+        // 하단 점들을 가져온다. (.dot 요소들을 가져온다.)
+        let dots = document.getElementsByClassName("dot");
+        // if -> 지금 slidenext가 3인데 거기서 next를 클릭하면 n이 4가 되어서 값이 들어오게 된다.
+        // n이 slides보다 크면(n이 이미지의 총 개수보다 크다면) slideIndex를 1로 초기화한다. 3까지 갔으면 다시 1로 가야하기 때문
+        if (n > slides.length) { slideIndex = 1 }
+        // if -> 지금 slideindex가 1인데 거기서 previous를 클릭하면 n이 0이 되어서 들어온다. 있을 수 없는 값이기 때문에 slideIndex를 slide.length로 변경해준다. 현재 1 -> 변경 3
+        if (n < 1) { slideIndex = slides.length }
+
+        // 2. 초기화
+        // 모든 이미지의 display를 none으로 설정한다.
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        // 점 class의 active value를 제거한다.
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        
+        // 3. 사진을 보여준다.
+        slides[slideIndex - 1].style.display = "block"; // slides요소는 0부터. slideIndex는 1부터 시작하기 때문에 slideIndex에 -1해줌
+        // 현재 활성화되어있는 사진에 해당하는 점을 강조해주는 css 추가
+        dots[slideIndex - 1].className += " active";
+    }
+</script>
+
+</html>

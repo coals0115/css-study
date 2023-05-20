@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* The browser window */
+        /* 회색 테두리, 왼쪽 상단과 오른쪽 상단 모서리 둥글게 처리 */
+        .container {
+            border: 3px solid #f1f1f1;
+            border-top-left-radius: 4px;
+            /* 왼쪽 상단 모서리 둥글게 */
+            border-top-right-radius: 4px;
+            /* 오른쪽 상단 모서리 둥글게 */
+        }
+
+        /* 상단바 : 배경 회식, 상단 왼쪽과 오른쪽 모서리가 둥글게 처리된 상단바 생성. 3개의 열로 구성되어있다.(15%, 75%, 10%) */
+        .row {
+            padding: 10px;
+            background: #f1f1f1;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        /* 상단바 각각 너비 15, 10, 75 */
+        .column {
+            float: left;
+        }
+
+        .left {
+            width: 15%;
+        }
+
+        .right {
+            width: 10%;
+        }
+
+        .middle {
+            width: 75%;
+        }
+
+        /* 'clearfix' 기법을 사용하여 float된 열들이 상단바의 높이를 올바르게 인식하도록함 */
+        .row:after {
+            /* 가상 요소 내용 설정 */
+            content: "";
+            /* 요소의 양쪽에서 float된 요소를 무시하도록 지시한다. 즉, 가상 요소가 float된 요소 아래에 배치되어 부모 요소가 float된 자식 요소의 높이를 올바르게 인식하도록 돕는다. */
+            clear: both;
+            /* 가상 요소는 테이블과 유사한 박스 모델을 따른다(?) float된 요소의 높이를 인식하는데 필요한 올바른 박스 모델을 설정하는데 도움이 된다고함.. */
+            display: table;
+        }
+
+        /* 왼쪽 상단의 3개 동그라미 */
+        .dot {
+            margin-top: 4px;
+            height: 12px;
+            width: 12px;
+            background-color: #bbb;
+            /* ?? */
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* 브라우저 주소창 style */
+        input[type=text] {
+            width: 100%;
+            border-radius: 3px;
+            border: none;
+            background-color: white;
+            margin-top: -8px;
+            height: 25px;
+            color: #666;
+            padding: 5px;
+        }
+
+        /* 수평 막대 생성(햄버거 메뉴) */
+        .bar {
+            width: 17px;
+            height: 3px;
+            background-color: #aaa;
+            margin: 3px 0;
+            display: block;
+        }
+
+        /* 페이지 내용 */
+        .content {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="column left">
+                <span class="dot" style="background:#ED594A;"></span>
+                <span class="dot" style="background:#FDD800;"></span>
+                <span class="dot" style="background:#5AC05A;"></span>
+            </div>
+            <div class="column middle">
+                <input type="text" value="http://www.w3schools.com">
+            </div>
+            <div class="column right">
+                <div style="float:right">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <h3>Browser Window</h3>
+            <p>How to create a detailed browser window look with CSS.</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

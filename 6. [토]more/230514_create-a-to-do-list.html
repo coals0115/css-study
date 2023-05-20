@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            min-width: 250px;
+        }
+
+        /* Include the padding and border in an element's total width and height */
+        * {
+            box-sizing: border-box;
+        }
+
+        /* ul의 기본 padding과 margin 제거 */
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Style the list items */
+        ul li {
+            cursor: pointer;
+            position: relative; /* ul li.checked::before 때문에 설정해줌 */
+            padding: 12px 8px 12px 40px;
+            list-style-type: none;
+            background: #eee;
+            font-size: 18px;
+            transition: 0.2s; 
+
+            /* 목록 항목 드래그 못하게 막기 */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* odd : 홀수를 의미하는 영단어. ul li 요소 중에 홀수에 위치하는 태그를 선택한다. -> 얼룩말 줄무니 모양으로 설정 */
+        ul li:nth-child(odd) {
+            background: #f9f9f9;
+        }
+
+        /* li 요소에 커서 올리면 배경색 변경 */
+        ul li:hover {
+            background: #ddd;
+        }
+
+        /* todo를 클릭했을 때 배경색과 텍스트 색상을 변경하고 텍스트에 취소선을 그어준다. */
+        ul li.checked {
+            background: #888;
+            color: #fff;
+            text-decoration: line-through;
+        }
+
+        /* 클릭 시 체크 표시 추가 */
+        ul li.checked::before {
+            content: '';
+            position: absolute; /* li를 기준으로 위치잡는다. */
+            border-color: #fff;
+            border-style: solid;
+            border-width: 0 2px 2px 0;
+            top: 10px;
+            left: 16px;
+            transform: rotate(45deg);
+            height: 15px;
+            width: 7px;
+        }
+
+        /* 닫기 버튼 style */
+        .close {
+            position: absolute; /* li 기준으로 위치잡는다. */
+            /* 위치는 오른쪽 위 */
+            right: 0;
+            top: 0;
+            padding: 12px 16px 12px 16px;
+        }
+
+        .close:hover {
+            background-color: #f44336;
+            color: white;
+        }
+
+        /* 헤더 스타일 */
+        .header {
+            background-color: #f44336;
+            padding: 30px 40px;
+            color: white;
+            text-align: center;
+        }
+
+        /* <요약> : 부모 요소가 float된 자식 요소의 높이를 올바르게 인식 가능
+        1. .clearfix 클래스가 적용된 요소의 내용 바로 뒤에 빈 가상 요소를 생성
+        2. 양쪽에서 float된 요소를 무시하도록 설정
+        3. 테이블 디스플레이 유형을 사용하여 요소를 스타일링
+        */
+        .header:after {
+            content: "";
+            /* 가상 요소 내용 설정 */
+            /* 요소의 양쪽에서 float된 요소를 무시하도록 지시한다. 즉, 가상 요소가 float된 요소 아래에 배치되어 부모 요소가 float된 자식 요소의 높이를 올바르게 인식하도록 돕는다. */
+            clear: both;
+            /* 가상 요소는 테이블과 유사한 박스 모델을 따른다(?) float된 요소의 높이를 인식하는데 필요한 올바른 박스 모델을 설정하는데 도움이 된다고함.. */
+            display: table;
+        }
+
+        /* Style the input */
+        input {
+            margin: 0;
+            border: none;
+            border-radius: 0;
+            width: 75%;
+            padding: 10px;
+            float: left; /* 왼쪽으로 붙인다 */
+            font-size: 16px;
+        }
+
+        /* Style the "Add" button */
+        .addBtn {
+            padding: 10px;
+            width: 25%;
+            background: #d9d9d9;
+            color: #555;
+            float: left;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 0;
+        }
+
+        .addBtn:hover {
+            background-color: #bbb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="myDIV" class="header">
+        <h2 style="margin:5px">My To Do List</h2>
+        <input type="text" id="myInput" placeholder="Title...">
+        <span onclick="newElement()" class="addBtn">Add</span>
+    </div>
+
+    <ul id="myUL">
+        <li>Hit the gym</li>
+        <li class="checked">Pay bills</li>
+        <li>Meet George</li>
+        <li>Buy eggs</li>
+        <li>Read a book</li>
+        <li>Organize office</li>
+    </ul>
+
+    <script>
+        /* to-do에 닫기 버튼 추가 */
+        var myNodelist = document.getElementsByTagName("LI");
+        var i;
+        for (i = 0; i < myNodelist.length; i++) {
+            var span = document.createElement("SPAN");
+            var txt = document.createTextNode("\u00D7");
+            span.className = "close";
+            span.appendChild(txt);
+            myNodelist[i].appendChild(span);
+        }
+
+        /* close 버튼을 누르면 li의 display = 'none'으로 변경 */
+        var close = document.getElementsByClassName("close");
+        var i;
+        for (i = 0; i < close.length; i++) {
+            close[i].onclick = function () {
+                var div = this.parentElement;
+                div.style.display = "none";
+            }
+        }
+
+        /* to-do 클릭하면 체크됨 표시 추가 */
+        var list = document.querySelector('ul');
+        list.addEventListener('click', function (ev) {
+            if (ev.target.tagName === 'LI') {
+                ev.target.classList.toggle('checked');
+            }
+        }, false);
+
+        /* Add 버튼 클릭 시 새로운 todo 생성 */
+        function newElement() {
+            var li = document.createElement("li");
+            var inputValue = document.getElementById("myInput").value;
+            var t = document.createTextNode(inputValue);
+            li.appendChild(t);
+            if (inputValue === '') {
+                alert("You must write something!");
+            } else {
+                document.getElementById("myUL").appendChild(li);
+            }
+            document.getElementById("myInput").value = "";
+
+            // 새로 추가한 todo에 닫기 버튼 추가 
+            var span = document.createElement("SPAN");
+            var txt = document.createTextNode("\u00D7");
+            span.className = "close";
+            span.appendChild(txt);
+            li.appendChild(span);
+
+            // 새로 추가한 todo에 닫기 버튼 이벤트 추가 
+            for (i = 0; i < close.length; i++) {
+                close[i].onclick = function () {
+                    var div = this.parentElement;
+                    div.style.display = "none";
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>

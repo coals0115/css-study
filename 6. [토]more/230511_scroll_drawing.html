@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            height: 2000px;
+            background: #f1f1f1;
+        }
+
+        #mySVG {
+            position: fixed; /* 요소의 위치 고정, 스크롤할 때도 위치가 변경되지 않는다. */
+            top: 15%; /* 브라우저 기준으로 위에서 15%에 위치한 곳에 지정 */
+            width: 400px;
+            height: 210px;
+            margin-left: -50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Scroll down this window to draw a triangle.</h2>
+    <p>Scroll back up to reverse the drawing.</p>
+
+    <!-- SVG는 XML 기반의 벡터 이미지 형식으로, 크기가 변해도 선명도가 유지되는 특징이 있다.-->
+    <svg id="mySVG">
+        <!-- 
+        fill="none" : 삼각형 내부를 채우지 않는다.
+        stroke="red" : 선의 색상을 빨간색으로 설정
+        stroke-width="3" : 선의 두께를 3으로 설정
+        d="M150 0 L75 200 L225 200 Z" : 삼각형의 세 꼭짓점을 정의 
+            'M' - move to
+            'L' - line to
+            'Z' - 현재 위치에서 시작점까지 선을 그어 도형을 닫는다.
+            -> (150, 0)에서 시작해서 (75, 200)과 (225, 200)으로 선을 그린 후, 시작점으로 돌아와 삼각형을 완성한다.
+        -->
+        <path fill="none" stroke="red" stroke-width="3" id="triangle" d="M150 0 L75 200 L225 200 Z" />
+        Sorry, your browser does not support inline SVG. <!-- SVG를 지원하지 않는 브라우저에서 표시된다. SVG를 지원하는 브라우저에서는 이 부분은 무시된다. -->
+    </svg>
+
+    <script>
+        // <path> 요소의 id와 <path>의 길이를 가져온다.
+        var triangle = document.getElementById("triangle");
+        var length = triangle.getTotalLength(); // 그리기를 시작하는 데 필요한 선의 총 길이를 알아내기 위함
+
+        // stroke-dasharray 스타일을 삼각형의 길이로 설정한다. 이는 선이 하나의 긴 대시처럼 보이게 하는 효과를 준다. 
+        triangle.style.strokeDasharray = length;
+
+        // stroke-dashoffset 스타일을 삼각형의 길이로 설정한다. 이는 선을 처음에 숨기는 효과를 준다. 즉, 대시의 시작점을 선의 총 길이만큼 오프셋하여 선이 보이지 않게 한다.
+        triangle.style.strokeDashoffset = length;
+
+        // 스크롤 이벤트에 myFunction 함수 등록 
+        window.addEventListener("scroll", myFunction);
+
+        // 스크롤할 때마다 호출됨
+        function myFunction() {
+            // 스크롤의 위치에 따라 삼각형을 그리는 것을 제어한다. 스크롤의 위치를 퍼센트로 계산한 다음, 이 퍼센트를 삼각형의 총 길이와 곱하여 그리기 위치를 결정한다.
+            var scrollpercent = (document.body.scrollTop + document.documentElement.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
+
+            var draw = length * scrollpercent;
+
+            triangle.style.strokeDashoffset = length - draw; // 그리기 위치를 변경. 스크롤이 위로 이동하면 그리기가 반대 방향으로 이루어져 삼각형이 지워지는 효과를 준다.
+        }
+    </script>
+
+</body>
+
+</html>

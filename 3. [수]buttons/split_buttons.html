@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome Icon Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .btn {
+            background-color: #2196F3;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            outline: none;
+        }
+
+        .dropdown {
+            /* position: absolute가 없을 때는 드롭다운 옆에 버튼과의 공백이 생긴다. 이 공백은 인라인 요소 사이의 공백 문자 때문이라고함. 
+                .dropdown에 absolute를 적용하면 이 요소가 인라인 요소로 취급되지 않고 레이아웃에 영향을 주지 않는 독립적인 레이어로 작동하게 된다. 따라서 인라인 요소 사이의 공백 문자로 인한 간격이 발생하지 않는다. */
+            display: inline-block; 
+            position: absolute; 
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute; /* 왜있음? */
+            background-color: #f1f1f1;
+            min-width: 160px; 
+            z-index: 1;
+        }
+
+        /* dropdown 안에있는 link들 style */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* a태그에 커서 올리면 색상 변경 */
+        .dropdown-content a:hover {background-color: #ddd}
+
+        /* .dropdown 요소에 마우스를 올렸을 때 .dropdown-content 요소의 display를 block으로 설정한다. */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* .btn에 마우스를 올리거나 .dropdown에 마우스를 올렸을 때 .btn 요소의 bc컬러 변경 */
+        .btn:hover, .dropdown:hover .btn  {
+            background-color: #0b7dda;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <!-- 버튼 위로 마우스를 올리면 나타나는 드롭다운 메뉴 만들기 -->
+    <button class="btn">Buttons</button> <!-- 버튼은 기본적으로 display: inline-block -->
+
+    <div class="dropdown">
+        <button class="btn" style="border-left: 1px sold navy;">
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+        </div>
+    </div>
+
+</body>
+</html>
